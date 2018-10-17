@@ -1,6 +1,10 @@
 package com.example.demo.controller;
 
+import java.security.Principal;
+import java.util.Base64;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+
 import com.example.demo.model.Tasks;
+import com.example.demo.model.User;
 import com.example.demo.service.TasksService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
+
 @RequestMapping("/Tasks")
 public class TaskController
 {
@@ -55,4 +62,11 @@ public class TaskController
 	{
 		ser.deleteTask(id);
 	}
+	
+	@RequestMapping("/login")
+	public boolean login(@RequestBody User user) {
+		return user.getUserName().equals("user") && user.getPassword().equals("password");
+	}
+
+	
 }
